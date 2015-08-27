@@ -1,0 +1,92 @@
+Name:                   ghcjs-examples
+Version:                0.0.0
+Author:                 James Haver II <mchaver@gmail.com>
+Maintainer:             James Haver II <mchaver@gmail.com>
+License:                BSD3
+Cabal-Version:          >= 1.10
+Build-Type:             Simple
+Extra-Source-Files:     README.md
+
+executable button
+  Default-Language:     Haskell2010
+  HS-Source-Dirs:       button
+  GHC-Options:          -Wall
+  Main-is:              Main.hs
+  Other-Modules:        Button
+  Build-Depends:        base         >= 4 && < 5
+                      , ghcjs-vdom   >= 0.1.0.0
+                      , ghcjs-ffiqq  >= 0.1.0.0
+                      , ghcjs-base   >= 0.1.0.0
+                      , ghcjs-canvas >= 0.1.0.0
+                      , vdom-adapter >= 0.0.2
+                      , text         >= 1.1.1.3
+                      , safe         >= 0.3.9
+                      , stm          >= 2.4.3
+                      , stm-notify   >= 0.0.3
+                      , shakespeare-dynamic >= 0.0.1
+                      , containers   >= 0.5.5.1
+                      , ghcjs-jquery
+                      , data-default
+
+executable textbox
+  Default-Language:     Haskell2010
+  HS-Source-Dirs:       textbox
+  GHC-Options:          -Wall
+  Main-is:              Main.hs
+  Other-Modules:        Textbox
+  Build-Depends:        base         >= 4 && < 5
+                      , ghcjs-vdom   >= 0.1.0.0
+                      , ghcjs-ffiqq  >= 0.1.0.0
+                      , ghcjs-base   >= 0.1.0.0
+                      , ghcjs-canvas >= 0.1.0.0
+                      , vdom-adapter >= 0.0.2
+                      , text         >= 1.1.1.3
+                      , safe         >= 0.3.9
+                      , stm          >= 2.4.3
+                      , stm-notify   >= 0.0.3
+                      , shakespeare-dynamic >= 0.0.1
+                      , containers   >= 0.5.5.1
+                      , ghcjs-jquery
+                      , data-default
+
+executable form
+  Default-Language:     Haskell2010
+  HS-Source-Dirs:       form
+  GHC-Options:          -Wall
+  Main-is:              Main.hs
+  Other-Modules:        Form
+  Build-Depends:        base         >= 4 && < 5
+                      , ghcjs-vdom   >= 0.1.0.0
+                      , ghcjs-ffiqq  >= 0.1.0.0
+                      , ghcjs-base   >= 0.1.0.0
+                      , ghcjs-canvas >= 0.1.0.0
+                      , vdom-adapter >= 0.0.2
+                      , text         >= 1.1.1.3
+                      , safe         >= 0.3.9
+                      , stm          >= 2.4.3
+                      , stm-notify   >= 0.0.3
+                      , shakespeare-dynamic >= 0.0.1
+                      , containers   >= 0.5.5.1
+                      , ghcjs-jquery
+                      , data-default
+
+executable table
+  Default-Language:     Haskell2010
+  HS-Source-Dirs:       table
+  GHC-Options:          -Wall
+  Main-is:              Main.hs
+  Other-Modules:        Table
+  Build-Depends:        base         >= 4 && < 5
+                      , ghcjs-vdom   >= 0.1.0.0
+                      , ghcjs-ffiqq  >= 0.1.0.0
+                      , ghcjs-base   >= 0.1.0.0
+                      , ghcjs-canvas >= 0.1.0.0
+                      , vdom-adapter >= 0.0.2
+                      , text         >= 1.1.1.3
+                      , safe         >= 0.3.9
+                      , stm          >= 2.4.3
+                      , stm-notify   >= 0.0.3
+                      , shakespeare-dynamic >= 0.0.1
+                      , containers   >= 0.5.5.1
+                      , ghcjs-jquery
+                      , data-default
