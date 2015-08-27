@@ -12,7 +12,7 @@
 	url = https://github.com/ghcjs/ghcjs-ffiqq.git
 [submodule "ghcjs-vdom"]
 	path = non-hackage-dependencies/ghcjs-vdom
-	url = https://github.com/ghcjs/ghcjs-vdom.git
+	url = https://github.com/plow-technologies/ghcjs-vdom.git
 [submodule "ghcjs-servant-client"]
 	path = non-hackage-dependencies/ghcjs-servant-client
 	url = git@github.com:plow-technologies/ghcjs-servant-client.git
