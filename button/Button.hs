@@ -3,26 +3,23 @@
 
 module Button where
 
-import           Data.Maybe
 import           Prelude                        hiding (div, sequence)
 
-import           Control.Concurrent.STM.Message
-import           Control.Concurrent.STM.Notify
-
--- GHCJS/VDom/Ophelia
-import           GHCJS.VDOM
-
-import           Shakespeare.Dynamic.Components
-import           Shakespeare.Dynamic.Event
-import           Shakespeare.Dynamic.Render
-import qualified VDOM.Adapter                   as VDA
-
 import           Control.Monad                  (void)
+import           Data.Maybe
 import           Data.Text                      (Text, concat, pack, unpack)
-import           Shakespeare.Ophelia
-
 import qualified Data.Sequence                  as S
 
+-- VDOM, GHCJS, Valentine
+import           Control.Concurrent.STM.Notify
+import           GHCJS.VDOM
+import           LiveVDom.Adapter.Types
+import           LiveVDom.Components
+import           LiveVDom.Event
+import           LiveVDom.Message
+import           LiveVDom.Render
+import           LiveVDom.Types
+import           Valentine
 
 
 runButtonDefault :: IO ()
@@ -53,8 +50,8 @@ forkDeleteButton :: STMEnvelope (Event ()) -> STMMailbox (S.Seq Text) -> IO ()
 forkDeleteButton buttonEnv (_,addr) = void $ forkOnChange buttonEnv $ \_ -> do
   sendIO addr $ S.empty
 
-displayButton ::  Address (Event ()) -> Address (Event ()) -> STMMailbox (S.Seq Text) -> LiveVDom VDA.JSEvent
-displayButton sbmtBttnAddr deleteAddr ls = [gertrude|
+displayButton ::  Address (Event ()) -> Address (Event ()) -> STMMailbox (S.Seq Text) -> LiveVDom JSEvent
+displayButton sbmtBttnAddr deleteAddr ls = [valentine|
 <div>
   <h2>
     Button Test
@@ -65,8 +62,8 @@ displayButton sbmtBttnAddr deleteAddr ls = [gertrude|
     !{return $ button deleteAddr   [] "Delete All"}
 |]
 
-displayLine :: STMMailbox (S.Seq Text) -> Text -> ((Maybe Text) -> Message ()) -> LiveVDom VDA.JSEvent
-displayLine _ t _ = [gertrude|
+displayLine :: STMMailbox (S.Seq Text) -> Text -> ((Maybe Text) -> Message ()) -> LiveVDom JSEvent
+displayLine _ t _ = [valentine|
 <div>
   #{return . unpack $ t}
 |]

@@ -19,3 +19,6 @@
 [submodule "stm-notify"]
 	path = non-hackage-dependencies/stm-notify
 	url = git@github.com:plow-technologies/stm-notify.git
+[submodule "non-hackage-dependencies/valentine"]
+	path = non-hackage-dependencies/valentine
+	url = git@github.com:plow-technologies/valentine.git
