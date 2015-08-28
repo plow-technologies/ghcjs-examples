@@ -3,37 +3,23 @@
 
 module Table where
 
-import           Control.Applicative
-
-import           Data.Maybe
-import           Data.Traversable
 import           Prelude                        hiding (div, sequence)
 
-import           Control.Concurrent.STM.Message
-import           Control.Concurrent.STM.Notify
-import           Control.Concurrent.STM.TMVar
-
--- GHCJS/VDom/Ophelia
-import           GHCJS.Foreign
-import           GHCJS.Foreign.QQ
-import           GHCJS.Marshal
-import           GHCJS.Types
-import           GHCJS.VDOM
-
-import           Shakespeare.Dynamic.Components
-import           Shakespeare.Dynamic.Event
-import           Shakespeare.Dynamic.Render
-import qualified VDOM.Adapter                   as VDA
-
-import           Control.Concurrent
-import           Control.Monad                  (join, void, when)
-import           Control.Monad.STM
+import           Control.Monad                  (void)
+import           Data.Maybe
 import           Data.Text                      (Text, pack, unpack)
-import           Shakespeare.Ophelia
-import           Text.Read
-
 import qualified Data.Sequence                  as S
-import           VDOM.Adapter
+
+-- VDOM, GHCJS, Valentine
+import           Control.Concurrent.STM.Notify
+import           GHCJS.VDOM
+import           LiveVDom.Adapter.Types
+import           LiveVDom.Components
+import           LiveVDom.Event
+import           LiveVDom.Message
+import           LiveVDom.Render
+import           LiveVDom.Types
+import           Valentine
 
 runTableDefault :: IO ()
 runTableDefault = do
@@ -57,10 +43,9 @@ runTable container = do
 
   runDomI container (return ()) $ return (displayTable p)
 
--- Address (Event (String, String)) -> 
 
-displayTable :: STMMailbox (S.Seq TableRow) -> LiveVDom VDA.JSEvent
-displayTable pMb = [gertrude|
+displayTable :: STMMailbox (S.Seq TableRow) -> LiveVDom JSEvent
+displayTable pMb = [valentine|
 <table>
   <tr>
     <th>
@@ -74,8 +59,8 @@ displayTable pMb = [gertrude|
   &{forEach pMb (displayRow pMb)}
 |]
 
-displayRow :: STMMailbox (S.Seq TableRow) -> TableRow -> ((Maybe TableRow) -> Message ()) -> LiveVDom VDA.JSEvent
-displayRow tMb t updateT = [gertrude|
+displayRow :: STMMailbox (S.Seq TableRow) -> TableRow -> ((Maybe TableRow) -> Message ()) -> LiveVDom JSEvent
+displayRow tMb t updateT = [valentine|
 <tr>
   <td>
     #{return . tableRowUserId $ t}
@@ -87,49 +72,5 @@ displayRow tMb t updateT = [gertrude|
     #{return . tableRowGroup $ t}
 |]
 
-
-{-
-displayText :: Address (Event String) -> STMMailbox (S.Seq Text) -> LiveVDom VDA.JSEvent
-displayText modifyTextAddr tMb = [gertrude|
-<div>
-  Input Text:
-  <div>
-    &{forEach tMb (displayLine tMb)}
-  <div>
-    !{return $ textBox modifyTextAddr [] Nothing}
-|]
-
-displayLine :: STMMailbox (S.Seq Text) -> Text -> ((Maybe Text) -> Message ()) -> LiveVDom VDA.JSEvent
-displayLine tMb t updateT = [gertrude|
-<span>
-  #{return . unpack $ t}
-|]
-
-displayRow :: LiveVDom VDA.JSEvent
-displayRow p p = [gertrude|
-<tr>
-  <td>
-    tableRowUserId
-  <td>
-    tableRowUserName
-  <td>
-    tableRowEmail
-  <td>
-    tableRowGroup
-|]
-
- <table style="width:100%">
-  <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Points</th>
-  </tr>
-  <tr>
-    <td>Eve</td>
-    <td>Jackson</td>
-    <td>94</td>
-  </tr>
-</table> 
--}
 
 

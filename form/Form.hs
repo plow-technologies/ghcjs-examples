@@ -3,37 +3,23 @@
 
 module Form where
 
-import           Control.Applicative
-
-import           Data.Maybe
-import           Data.Traversable
 import           Prelude                        hiding (div, sequence)
 
-import           Control.Concurrent.STM.Message
-import           Control.Concurrent.STM.Notify
-import           Control.Concurrent.STM.TMVar
-
--- GHCJS/VDom/Ophelia
-import           GHCJS.Foreign
-import           GHCJS.Foreign.QQ
-import           GHCJS.Marshal
-import           GHCJS.Types
-import           GHCJS.VDOM
-
-import           Shakespeare.Dynamic.Components
-import           Shakespeare.Dynamic.Event
-import           Shakespeare.Dynamic.Render
-import qualified VDOM.Adapter                   as VDA
-
-import           Control.Concurrent
-import           Control.Monad                  (join, void, when)
-import           Control.Monad.STM
+import           Control.Monad                  (void)
+import           Data.Maybe
 import           Data.Text                      (Text, pack, unpack)
-import           Shakespeare.Ophelia
-import           Text.Read
-
 import qualified Data.Sequence                  as S
-import           VDOM.Adapter
+
+-- VDOM, GHCJS, Valentine
+import           Control.Concurrent.STM.Notify
+import           GHCJS.VDOM
+import           LiveVDom.Adapter.Types
+import           LiveVDom.Components
+import           LiveVDom.Event
+import           LiveVDom.Message
+import           LiveVDom.Render
+import           LiveVDom.Types
+import           Valentine
 
 runFormDefault :: IO ()
 runFormDefault = do
@@ -83,8 +69,8 @@ updateProfile "emailaddress" uv pc = ProfileConfig (profileFirstName pc) (profil
 updateProfile "homeaddress"  uv pc = ProfileConfig (profileFirstName pc) (profileLastName pc) (profileEmail pc) uv
 updateProfile _              _  pc = pc
 
-displayForm :: Address (Event (String, String)) -> STMMailbox (S.Seq ProfileConfig) -> LiveVDom VDA.JSEvent
-displayForm profileAddr pMb = [gertrude|
+displayForm :: Address (Event (String, String)) -> STMMailbox (S.Seq ProfileConfig) -> LiveVDom JSEvent
+displayForm profileAddr pMb = [valentine|
 <div>
   <div>
     First Name:
@@ -111,7 +97,7 @@ textBoxWithId i addr = textBoxWith (\str -> sendMessage addr $ Fired (i,str))
 {-
 Not sure how to make delete button set ProfileConfig to clear and then update textBoxes in displayForm
 
-displayControls :: Address (Event ()) -> Address (Event ()) -> LiveVDOM VDA.JSEvent
+displayControls :: Address (Event ()) -> Address (Event ()) -> LiveVDOM JSEvent
 displayControls a b = [gertrude|
 <div>
   !{return $ button ? [] "Sign up"}
